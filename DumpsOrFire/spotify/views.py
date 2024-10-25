@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.templatetags.static import static
 
 from . import format_rating as fr
 from . import generate_rating as gr
@@ -75,7 +76,8 @@ def rate(request):
             desc, img = fr.format_rating(popularity, type=search_type)
 
             context["description"] = desc
-            context["reaction"] = f"static/spotify/rating_reaction/{img}"
+            # context["reaction"] = f"static/spotify/rating_reaction/{img}"
+            context["reaction"] = static(f'spotify/rating_reaction{img}')
 
             context["image"] = image
             context["name"] = name
