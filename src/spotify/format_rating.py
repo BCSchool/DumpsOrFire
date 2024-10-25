@@ -1,8 +1,8 @@
 import json
-# import os
+import os
 
-# from django.conf import settings
-from django.templatetags.static import static
+from django.conf import settings
+# from django.templatetags.static import static
 
 
 def assign_letter_grade(pop_rating=0):
@@ -33,19 +33,28 @@ def get_description(letter_rating, type="track"):
     """
     Gets description and image path from json file based on letter grade given by assign_letter_grade
     """
+    file_path = os.path.join(settings.BASE_DIR, 'spotify', 'static', 'spotify', 'descriptions.json')
     # file_path = os.path.join(settings.STATIC_ROOT, "spotify", "descriptions.json")
-    file_path = static("spotify/descriptions.json")
+    # file_path = static("spotify/descriptions.json")
 
-    json_data = open(file_path, "r")
-    data = json.load(json_data)
+    try:
+        with open(file_path, "r") as json_data:
+            data = json.load(json_data)
 
-    json_data.close()
+        desc = data[letter_rating][type]
+        img = data[letter_rating]["reaction"]
 
-    desc = data[letter_rating][type]
-    img = data[letter_rating]["reaction"]
+        return desc, img
 
-    return desc, img
-
+    except FileNotFoundError:
+        print(f"Could not find file at: {file_path}")
+        raise
+    except json.JSONDecodeError:
+        print(f"Error decoding JSON from file: {file_path}")
+        raise
+    except KeyError as e:
+        print(f"Missing key in JSON data: {e}")
+        raise
 
 def format_rating(generated_rating=0, type="track"):
     """

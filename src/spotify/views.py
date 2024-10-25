@@ -1,13 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.templatetags.static import static
+from django.conf import settings
 
 from . import format_rating as fr
 from . import generate_rating as gr
 from . import url_parser as up
 
 # Create your views here.
-
 
 def favicon(request):
     return HttpResponse(status=204)
@@ -31,6 +31,10 @@ def rate(request):
         # Get user input and change search type text in search box
         user_input = request.POST.get("user_input")
         search_type = request.POST.get("search_type")
+
+        if settings.DEBUG:
+            print(f"User input: {user_input}")
+            print(f"Search type: {search_type}")
 
         if len(user_input) > 50 and search_type != "link":
             context["error"] = (
@@ -67,6 +71,9 @@ def rate(request):
             )
             return render(request, "spotify/rate.html", context)
 
+        if settings.DEBUG:
+            print(f"API request result: {result}")
+
         if result is not None:
             popularity, name, image = result
 
@@ -77,7 +84,7 @@ def rate(request):
 
             context["description"] = desc
             # context["reaction"] = f"static/spotify/rating_reaction/{img}"
-            context["reaction"] = static(f'spotify/rating_reaction{img}')
+            context["reaction"] = static(f'spotify/rating_reaction/{img}')
 
             context["image"] = image
             context["name"] = name

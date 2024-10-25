@@ -3,6 +3,7 @@ import json
 
 from django.conf import settings
 from requests import get, post
+from requests.exceptions import RequestException, Timeout
 
 client_id = settings.SOCIAL_AUTH_SPOTIFY_ID
 client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
@@ -10,9 +11,17 @@ client_secret = settings.SOCIAL_AUTH_SPOTIFY_SECRET
 
 def get_token():
     """Get Spotify token to access artist and track info"""
+
+    if settings.DEBUG:
+        print("in get_token")
+
     auth_string = client_id + ":" + client_secret
     auth_bytes = auth_string.encode("utf-8")
     auth_base64 = str(base64.b64encode(auth_bytes), "utf-8")
+
+    if settings.DEBUG:
+        print(f"client id: {client_id}")
+        print(f"client secret: {client_secret}")
 
     url = "https://accounts.spotify.com/api/token"
     headers = {
@@ -21,9 +30,26 @@ def get_token():
     }
 
     data = {"grant_type": "client_credentials"}
-    result = post(url, headers=headers, data=data)
+    try:
+        if settings.DEBUG:
+            print("attempting post request...")
+
+        result = post(url, headers=headers, data=data, timeout=10)
+
+    except Timeout:
+        print("Request timed out after 10 seconds")
+        raise
+    except RequestException as e:
+        print(f"Request failed: {str(e)}")
+        raise
+
+
+    if settings.DEBUG:
+        print("made it past post")
+
     json_result = json.loads(result.content)
     token = json_result["access_token"]
+
     return token
 
 
@@ -42,10 +68,20 @@ def get_popularity(content_type="track", content_name="", input_id=""):
     if content_name == "" and input_id == "":
         return None
 
+    if settings.DEBUG:
+        print("In get_popularity")
+
     token = get_token()
+
+    if settings.DEBUG:
+        print(f"Token: {token}")
+
 
     # Here we either use provided id or get one from the search
     if content_name != "" and input_id == "":
+        if settings.DEBUG:
+            print("Before user search")
+
         result = user_search(token, content_name, search_type=content_type)
         if result is None:
             return None
@@ -53,20 +89,49 @@ def get_popularity(content_type="track", content_name="", input_id=""):
     else:
         id = input_id
 
+    if settings.DEBUG:
+        print(f"Recieved id: {id}")
+
     # Search for content and return items associated with content
     url = f"https://api.spotify.com/v1/{content_type}s"
     headers = get_auth_header(token)
     query = f"/{id}"
 
-    query_url = url + query
-    result = get(query_url, headers=headers)
-    json_result = json.loads(result.content)
+    if settings.DEBUG:
+        print(f"headers: {headers}")
 
+    query_url = url + query
+
+    try:
+        result = get(query_url, headers=headers, timeout=10)
+
+        if result.status_code != 200:
+            print(f"Error response from Spotify: {result.text}")
+            result.raise_for_status()
+
+    except Timeout:
+        print("Request timed out after 10 seconds")
+        raise
+    except RequestException as e:
+        print(f"Request failed: {str(e)}")
+        raise
+
+    # result = get(query_url, headers=headers)
+
+    try:
+        json_result = json.loads(result.content)
+    
+    except Exception as e:
+        print(f"JSON error: {str(e)}")
+    
     # Get popularity of content (using avg function if playlist)
     if content_type == "playlist":
-        popularity = get_avg_popularity(result, json_result)
+        popularity = get_avg_popularity(json_result)
     else:
         popularity = json_result["popularity"]
+
+    if settings.DEBUG:
+        print(f"Popularity: {popularity}")
 
     # Get name of content
     name = json_result["name"]
@@ -82,7 +147,7 @@ def get_popularity(content_type="track", content_name="", input_id=""):
     return popularity, name, image
 
 
-def get_avg_popularity(result, json_result):
+def get_avg_popularity(json_result):
     """
     Get average popularity of tracks in a playlist
     """
@@ -101,13 +166,54 @@ def user_search(token, track_name, search_type="track"):
     """
     Search for a track and return items associated with track using spotify API
     """
+    if settings.DEBUG:
+        print("In user_search")
+
     url = "https://api.spotify.com/v1/search"
     headers = get_auth_header(token)
     query = f"?q={track_name}&type={search_type}&limit=1"
 
+    if settings.DEBUG:
+        print(f"query: {query}")
+
     query_url = url + query
-    result = get(query_url, headers=headers)
-    json_result = json.loads(result.content)[f"{search_type}s"]["items"]
+
+    if settings.DEBUG:
+        print(f"query url: {query_url}")
+        print("Attempting GET request...")
+
+    try:
+        result = get(query_url, headers=headers, timeout=10)
+
+        if result.status_code != 200:
+            print(f"Error response from Spotify: {result.text}")
+            result.raise_for_status()
+
+    except Timeout:
+        print("Request timed out after 10 seconds")
+        raise
+    except RequestException as e:
+        print(f"Request failed: {str(e)}")
+        raise
+
+    if settings.DEBUG:
+        print(f"Successfully got response: {result}")
+
+    try:
+        json_data = json.loads(result.content)
+        # json_result = json.loads(result.content)[f"{search_type}s"]["items"]
+        if settings.DEBUG:
+            print("Successfully parsed JSON")
+
+        json_result = json_data[f"{search_type}s"]["items"]
+
+        if settings.DEBUG:
+            print(f"Found {len(json_result)} items")
+
+    except (KeyError, json.JSONDecodeError) as e:
+        print(f"Error parsing response: {str(e)}")
+        print(f"Raw response: {result.text[:200]}...")
+        raise
 
     if len(json_result) == 0:
         print(f"No {search_type} with this name exists...")
