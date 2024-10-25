@@ -43,9 +43,8 @@ def get_token():
         print(f"Request failed: {str(e)}")
         raise
 
-
     if settings.DEBUG:
-        print("made it past post")
+        print("Post request successfull")
 
     json_result = json.loads(result.content)
     token = json_result["access_token"]
@@ -68,20 +67,13 @@ def get_popularity(content_type="track", content_name="", input_id=""):
     if content_name == "" and input_id == "":
         return None
 
-    if settings.DEBUG:
-        print("In get_popularity")
-
     token = get_token()
 
     if settings.DEBUG:
-        print(f"Token: {token}")
-
+        print(f"Recieved token: {token}")
 
     # Here we either use provided id or get one from the search
     if content_name != "" and input_id == "":
-        if settings.DEBUG:
-            print("Before user search")
-
         result = user_search(token, content_name, search_type=content_type)
         if result is None:
             return None
@@ -90,7 +82,7 @@ def get_popularity(content_type="track", content_name="", input_id=""):
         id = input_id
 
     if settings.DEBUG:
-        print(f"Recieved id: {id}")
+        print(f"Recieved id from user_search: {id}")
 
     # Search for content and return items associated with content
     url = f"https://api.spotify.com/v1/{content_type}s"
@@ -98,7 +90,7 @@ def get_popularity(content_type="track", content_name="", input_id=""):
     query = f"/{id}"
 
     if settings.DEBUG:
-        print(f"headers: {headers}")
+        print(f"Auth headers recieved: {headers}")
 
     query_url = url + query
 
@@ -131,7 +123,7 @@ def get_popularity(content_type="track", content_name="", input_id=""):
         popularity = json_result["popularity"]
 
     if settings.DEBUG:
-        print(f"Popularity: {popularity}")
+        print(f"Popularity found: {popularity}")
 
     # Get name of content
     name = json_result["name"]
@@ -166,15 +158,9 @@ def user_search(token, track_name, search_type="track"):
     """
     Search for a track and return items associated with track using spotify API
     """
-    if settings.DEBUG:
-        print("In user_search")
-
     url = "https://api.spotify.com/v1/search"
     headers = get_auth_header(token)
     query = f"?q={track_name}&type={search_type}&limit=1"
-
-    if settings.DEBUG:
-        print(f"query: {query}")
 
     query_url = url + query
 

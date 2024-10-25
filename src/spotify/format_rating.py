@@ -35,7 +35,6 @@ def get_description(letter_rating, type="track"):
     """
     file_path = os.path.join(settings.BASE_DIR, 'spotify', 'static', 'spotify', 'descriptions.json')
     # file_path = os.path.join(settings.STATIC_ROOT, "spotify", "descriptions.json")
-    # file_path = static("spotify/descriptions.json")
 
     try:
         with open(file_path, "r") as json_data:
