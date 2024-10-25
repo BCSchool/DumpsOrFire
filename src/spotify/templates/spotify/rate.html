@@ -1,105 +1,108 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dumps or Fire</title>
-  
-  <!-- Favicon -->
-  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-
-  <!-- Include Bootstrap CSS for styling -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{% static 'spotify/style.css' %}">
-</head>
-
-<body class="text-center">
-  <div class="cover-container d-flex h-100 p-3 flex-column">
-    
-    <!-- Top header and nav bar -->
-    <header class="header">
-      <div class="inner">
-        <h3 class="header-top">Dumps Or Fire</h3>
-        <nav class="nav nav-bar justify-content-center">
-          <a class="nav-link" href="{% url 'index' %}">Home</a>
-          <a class="nav-link active" href="{% url 'rate' %}">Rate</a>
-        </nav>
-      </div>
-    </header>
-
-    <main role="main" class="inner cover">
-      <div class="container-fluid">
-        <form method="POST" action="{% url 'rate' %}">
-          {% csrf_token %}
-          <div class="row">
-            <!-- Search box -->
-            <div class="col-9">
-              <div class="form-group">
-                <input type="text" class="form-control" id="search_input" name="user_input" placeholder="Search for music..." autofocus>
-              </div>
-            </div>
-            <!-- Search type dropdown -->
-            <div class="col-3">
-              <div class="form-group">
-                <select class="form-control" id="search_type_dropdown" name="search_type">
-                  <option value="track" {% if search_type == 'track' %}selected{% endif %}>Track</option>
-                  <option value="album" {% if search_type == 'album' %}selected{% endif %}>Album</option>
-                  <option value="playlist" {% if search_type == 'playlist' %}selected{% endif %}>Playlist</option>
-                  <option value="link" {% if search_type == 'link' %}selected{% endif %}>Link</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-secondary">Generate Rating</button>
-        </form>
-
-        <br>
-        
-        <!-- Error message display -->
-        <div class="row">
-          <div class="col">
-            {% if error %}
-              <div class="alert alert-danger" role="alert">
-                <p>Error: {{ error }}</p>
-              </div>
-            {% else %}
-              <div class="rating-box">
-                <h5 class="circular-text">Popularity Rating:</h5>
-                <h3 style="font-family='circular'">
-                  {% if rating %}
-                    {{ rating }} / 100
-                  {% else %}
-                    ❓/ 100
-                  {% endif %}
-                </h3>
-                <br>
-                <img id="HideImg" src="{{ reaction }}" alt="alt text" onerror="hideImg()" width="65%" height="70%">
-                <p class="circular-text">{{ description }}</p>
-              </div>
-            {% endif %}
-          </div>
-          <div class="col">
-            <div class="image-container">
-              <br>
-              <h5 class="circular-text">{{ name }}</h5>
-              <img id="HideImg2" src="{{ image }}" alt="alt text" onerror="hideImg2()">
-            </div>
-          </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dumps or Fire</title>
+        <!-- Favicon -->
+        <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+        <!-- Include Bootstrap CSS for styling -->
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'spotify/style.css' %}">
+    </head>
+    <body class="text-center">
+        <div class="cover-container d-flex h-100 p-3 flex-column">
+            <!-- Top header and nav bar -->
+            <header class="header">
+                <div class="inner">
+                    <h3 class="header-top">Dumps Or Fire</h3>
+                    <nav class="nav nav-bar justify-content-center">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                        <a class="nav-link active" href="{% url 'rate' %}">Rate</a>
+                    </nav>
+                </div>
+            </header>
+            <main role="main" class="inner cover">
+                <div class="container-fluid">
+                    <form method="POST" action="{% url 'rate' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <!-- Search box -->
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="search_input"
+                                           name="user_input"
+                                           placeholder="Search for music..."
+                                           autofocus>
+                                </div>
+                            </div>
+                            <!-- Search type dropdown -->
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <select class="form-control" id="search_type_dropdown" name="search_type">
+                                        <option value="track" {% if search_type == 'track' %}selected{% endif %}>Track</option>
+                                        <option value="album" {% if search_type == 'album' %}selected{% endif %}>Album</option>
+                                        <option value="playlist"
+                                                {% if search_type == 'playlist' %}selected{% endif %}>Playlist</option>
+                                        <option value="link" {% if search_type == 'link' %}selected{% endif %}>Link</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Generate Rating</button>
+                    </form>
+                    <br>
+                    <!-- Error message display -->
+                    <div class="row">
+                        <div class="col">
+                            {% if error %}
+                                <div class="alert alert-danger" role="alert">
+                                    <p>Error: {{ error }}</p>
+                                </div>
+                            {% else %}
+                                <div class="rating-box">
+                                    <h5 class="circular-text">Popularity Rating:</h5>
+                                    <h3 style="font-family='circular'">
+                                        {% if rating %}
+                                            {{ rating }} / 100
+                                        {% else %}
+                                            ❓/ 100
+                                        {% endif %}
+                                    </h3>
+                                    <br>
+                                    <img id="HideImg"
+                                         src="{{ reaction }}"
+                                         alt="alt text"
+                                         onerror="hideImg()"
+                                         width="65%"
+                                         height="70%">
+                                    <p class="circular-text">{{ description }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <div class="image-container">
+                                <br>
+                                <h5 class="circular-text">{{ name }}</h5>
+                                <img id="HideImg2" src="{{ image }}" alt="alt text" onerror="hideImg2()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="footer mt-auto">
+                <div class="inner">
+                    <p>Created by Joshua Holman, Brandon Cobb, and Jarred Siriban</p>
+                </div>
+            </footer>
         </div>
-      </div>
-    </main>
-
-    <footer class="footer mt-auto">
-      <div class="inner">
-        <p>Created by Joshua Holman, Brandon Cobb, and Jarred Siriban</p>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Custom JS -->
-  <script src="{% static 'spotify/fieldText.js' %}"></script>
-  <script>
+        <!-- Custom JS -->
+        <script src="{% static 'spotify/fieldText.js' %}"></script>
+        <script>
     function hideImg() {
       document.getElementById("HideImg").style.display = "none";
     }
@@ -107,11 +110,10 @@
     function hideImg2() {
       document.getElementById("HideImg2").style.display = "none";
     }
-  </script>
-
-  <!-- Include Bootstrap JS and its dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+        </script>
+        <!-- Include Bootstrap JS and its dependencies -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
 </html>
