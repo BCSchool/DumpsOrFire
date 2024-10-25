@@ -1,51 +1,61 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Dumps Or Fire</title>
-        <link rel="stylesheet"
-              href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link href="{% static 'spotify/style.css' %}" rel="stylesheet">
-    </head>
-    <!-- Top header and nav bar -->
-    <body class="text-center">
-        <div class="cover-container d-flex h-100 p-3 flex-column">
-            <header class="header mb-auto">
-                <div class="inner">
-                    <h3 class="header-top">Dumps Or Fire</h3>
-                    <nav class="nav nav-bar justify-content-center">
-                        <a class="nav-link active" href="{% url 'index' %}">Home</a>
-                        <a class="nav-link" href="{% url 'rate' %}">Rate</a>
-                    </nav>
-                </div>
-            </header>
-            <main role="main" class="inner cover">
-                <h1 class="cover-heading">
-                    Welcome to <span class="text-1">Dumps</span> Or <span class="text-2">Fire!</span>
-                </h1>
-                <p class="lead">
-                    Want to know if your playlist is fire or just a dumpster dive? Dumps Or Fire has the answer. Harnessing Spotify's API, this app will rate your music with no holds barred. Drop a title or share link and find out if your tunes are worth the hype.
-                </p>
-                <br>
-                <p class="lead">
-                    <a href="{% url 'rate' %}" class="btn btn-lg btn-secondary">Rate your music</a>
-                </p>
-            </main>
-            <footer class="footer mt-auto">
-                <div class="inner">
-                    <p>Created by Joshua Holman, Brandon Cobb, and Jarred Siriban</p>
-                </div>
-            </footer>
+  <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon" />
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Dumps Or Fire</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link href="{% static 'spotify/style.css' %}" rel="stylesheet" />
+  </head>
+  <!-- Top header and nav bar -->
+  <body class="text-center">
+    <div class="cover-container d-flex h-100 p-3 flex-column">
+      <header class="header mb-auto">
+        <div class="inner">
+          <h3 class="header-top">Dumps Or Fire</h3>
+          <nav class="nav nav-bar justify-content-center">
+            <a class="nav-link active" href="{% url 'index' %}">Home</a>
+            <a class="nav-link" href="{% url 'rate' %}">Rate</a>
+          </nav>
         </div>
-        <!-- Bootstrap core JavaScript
+      </header>
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading">
+          Welcome to <span class="text-1">Dumps</span> Or
+          <span class="text-2">Fire!</span>
+        </h1>
+        <p class="lead">
+          Want to know if your playlist is fire or just a dumpster dive? Dumps
+          Or Fire has the answer. Harnessing Spotify's API, this app will rate
+          your music with no holds barred. Drop a title or share link and find
+          out if your tunes are worth the hype.
+        </p>
+        <br />
+        <p class="lead">
+          <a href="{% url 'rate' %}" class="btn btn-lg btn-secondary"
+            >Rate your music</a
+          >
+        </p>
+      </main>
+      <footer class="footer mt-auto">
+        <div class="inner">
+          <p>Created by Joshua Holman, Brandon Cobb, and Jarred Siriban</p>
+        </div>
+      </footer>
+    </div>
+    <!-- Bootstrap core JavaScript
     ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </body>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>

@@ -1,65 +1,50 @@
 {
-    "A": 
-        {
-            "track" : "Not bad. This track is super popular right now so it's definitely good, but it's pretty basic.",
-            "album" : "This album is super hot right now and it definitely has a lot of hits! You can't go wrong with putting this on the aux.",
-            "playlist" : "Super popular playlist... but breathing air is popular.",
-            "reaction" : "hot.png"
-        }
-    ,
-    "B": 
-        {
-            "track": "This track is great! Although it's not the most popular song, a good amount of listeners think this track smacks.",
-            "album" : "Fire! This album has potential to be a classic and shows an excellent taste in music.",
-            "playlist" : "Heat! This playlist has all the biggest hits and is very inoffensive to play. ",
-            "reaction" : "fire.png"
-        }
-    ,
-    "C": 
-        {
-            "track": "This track is nice! It's popularity shows that you must have a unique taste in music.",
-            "album" : "This album has some heat and is worth going back to, with only a few skips.",
-            "playlist" : "Exquisite! Despite not having the most popular songs, the song selection is hot!",
-            "reaction" : "exquisite.png"
-        }
-    ,
-    "D":
-        {
-            "track": "This track could be better, however it's most likely worth a listen!",
-            "album" : "It's alright. There are some stand out songs on this album, but there are some songs that miss.",
-            "playlist" : "Warm at best. The playlist has some good songs, but very little flavor.",
-            "reaction" : "nice.png"
-        }
-    ,
-    "F":
-        {
-            "track": "This song is not that popular and it leaves a lot to be desired.",
-            "album" : "Chances are this album is slept on; a hidden gem perhaps. This shows unique and cultured taste in music... Or it's boring.",
-            "playlist" : "Trash. This playlist only has mid, and is probably best listened to in the trash.",
-            "reaction" : "displeased.png"
-        }
-    ,
-    "G":
-        {
-            "track": "This is unpopular for a reason... it's probably not worth listening to.",
-            "album" : "Yeah, this album is not good. It might have once decent track, but other than that, it's not worth the time.",
-            "playlist" : "I guess it's alright. The popularity suggests that you know what you like, and aren't afraid of your tastes.",
-            "reaction" : "unimpressed.png"
-        }
-    ,
-    "H":
-        {
-            "track": "This song is straight trash, maybe try listening to Spotify's top 50 for better inspiration.",
-            "album" : "This album is garbage; there are way too many skips and misses in this track list.",
-            "playlist" : "Stinky... This playlist must have tunes catering to a specific taste, but kind of trash.",
-            "reaction" : "bruh.png"
-        }
-    ,
-    "Z":
-        {
-            "track": "...",
-            "album" : "Skip the dumpster, this album goes straight to the landfill...",
-            "playlist" : "Horrible, this playlist should be called torture tunes.",
-            "reaction" : "what.png"
-        }
+  "A": {
+    "track": "Not bad. This track is super popular right now so it's definitely good, but it's pretty basic.",
+    "album": "This album is super hot right now and it definitely has a lot of hits! You can't go wrong with putting this on the aux.",
+    "playlist": "Super popular playlist... but breathing air is popular.",
+    "reaction": "hot.png"
+  },
+  "B": {
+    "track": "This track is great! Although it's not the most popular song, a good amount of listeners think this track smacks.",
+    "album": "Fire! This album has potential to be a classic and shows an excellent taste in music.",
+    "playlist": "Heat! This playlist has all the biggest hits and is very inoffensive to play. ",
+    "reaction": "fire.png"
+  },
+  "C": {
+    "track": "This track is nice! It's popularity shows that you must have a unique taste in music.",
+    "album": "This album has some heat and is worth going back to, with only a few skips.",
+    "playlist": "Exquisite! Despite not having the most popular songs, the song selection is hot!",
+    "reaction": "exquisite.png"
+  },
+  "D": {
+    "track": "This track could be better, however it's most likely worth a listen!",
+    "album": "It's alright. There are some stand out songs on this album, but there are some songs that miss.",
+    "playlist": "Warm at best. The playlist has some good songs, but very little flavor.",
+    "reaction": "nice.png"
+  },
+  "F": {
+    "track": "This song is not that popular and it leaves a lot to be desired.",
+    "album": "Chances are this album is slept on; a hidden gem perhaps. This shows unique and cultured taste in music... Or it's boring.",
+    "playlist": "Trash. This playlist only has mid, and is probably best listened to in the trash.",
+    "reaction": "displeased.png"
+  },
+  "G": {
+    "track": "This is unpopular for a reason... it's probably not worth listening to.",
+    "album": "Yeah, this album is not good. It might have once decent track, but other than that, it's not worth the time.",
+    "playlist": "I guess it's alright. The popularity suggests that you know what you like, and aren't afraid of your tastes.",
+    "reaction": "unimpressed.png"
+  },
+  "H": {
+    "track": "This song is straight trash, maybe try listening to Spotify's top 50 for better inspiration.",
+    "album": "This album is garbage; there are way too many skips and misses in this track list.",
+    "playlist": "Stinky... This playlist must have tunes catering to a specific taste, but kind of trash.",
+    "reaction": "bruh.png"
+  },
+  "Z": {
+    "track": "...",
+    "album": "Skip the dumpster, this album goes straight to the landfill...",
+    "playlist": "Horrible, this playlist should be called torture tunes.",
+    "reaction": "what.png"
+  }
 }
