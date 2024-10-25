@@ -1,36 +1,30 @@
 {% extends 'spotify/base.html' %}
 {% load static %}
 {% block title %}Home - Dumps Or Fire{% endblock %}
-{% block home_active %}active{% endblock %}
+{% block rate_active %}active{% endblock %}
 {% block content %}
     <main role="main" class="inner cover">
         <div class="container-fluid">
             <form method="POST" action="{% url 'rate' %}">
                 {% csrf_token %}
-                <div class="row">
-                    <!-- Search box -->
-                    <div class="col-9">
-                        <div class="form-group">
-                            <input type="text"
-                                   class="form-control"
-                                   id="search_input"
-                                   name="user_input"
-                                   placeholder="Search for music..."
-                                   autofocus>
-                        </div>
-                    </div>
-                    <!-- Search type dropdown -->
-                    <div class="col-3">
-                        <div class="form-group">
-                            <select class="form-control" id="search_type_dropdown" name="search_type">
-                                <option value="track" {% if search_type == 'track' %}selected{% endif %}>Track</option>
-                                <option value="album" {% if search_type == 'album' %}selected{% endif %}>Album</option>
-                                <option value="playlist"
-                                        {% if search_type == 'playlist' %}selected{% endif %}>Playlist</option>
-                                <option value="link" {% if search_type == 'link' %}selected{% endif %}>Link</option>
-                            </select>
-                        </div>
-                    </div>
+                <!-- Search box -->
+                <div class="form-group">
+                    <input type="text"
+                           class="form-control"
+                           id="search_input"
+                           name="user_input"
+                           placeholder="Search for music..."
+                           autofocus>
+                </div>
+                <!-- Search type dropdown -->
+                <div class="dropdown mx-auto" id="search_select">
+                    <select class="form-control form-control" id="search_type_dropdown" name="search_type">
+                        <option value="track" {% if search_type == 'track' %}selected{% endif %}>Track Search</option>
+                        <option value="album" {% if search_type == 'album' %}selected{% endif %}>Album Search</option>
+                        <option value="playlist"
+                                {% if search_type == 'playlist' %}selected{% endif %}>Playlist Search</option>
+                        <option value="link" {% if search_type == 'link' %}selected{% endif %}>Spotify Link</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-secondary">Generate Rating</button>
             </form>

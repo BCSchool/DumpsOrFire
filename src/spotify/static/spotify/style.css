@@ -21,6 +21,7 @@ a:hover {
   text-shadow: none;
   border: 0.05rem solid #fff;
   transition: transform 250ms ease-in-out;
+  margin-top: 20px;
 }
 
 .btn-secondary:hover,
@@ -146,4 +147,9 @@ body {
 
 .form-group {
   margin-top: 20px;
+}
+
+.dropdown {
+  margin-top: 20px;
+  width: fit-content;
 }
